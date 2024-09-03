@@ -80,7 +80,7 @@ void AParaTestCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	}
 }
 
-
+//Input key binding should be moved to code from BP
 void AParaTestCharacter::ChangeProjectile(const TSubclassOf<class AParaTestProjectile> NewProjectileClass)
 {
 	
