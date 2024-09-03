@@ -37,7 +37,7 @@ void UTP_WeaponComponent::Fire()
 	CharacterAbilitySystem->TryActivateAbilityByClass(FireAbility, true);
 }
 
-//Projectiles could be pickups
+//TODO: Projectiles could be pickups
 void UTP_WeaponComponent::ChangeProjectile(const TSubclassOf<class AParaTestProjectile>& NewProjectileClass)
 {
 	if (NewProjectileClass == ProjectileClass)

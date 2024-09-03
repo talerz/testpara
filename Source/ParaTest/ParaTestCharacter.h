@@ -61,7 +61,7 @@ public:
 	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* LookAction;
-
+	/** Change Projectile Action */
 	UFUNCTION(BlueprintCallable, Category=Projectile)
 	void ChangeProjectile(const TSubclassOf<class AParaTestProjectile> NewProjectileClass);
 	
