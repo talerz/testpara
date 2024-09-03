@@ -11,11 +11,11 @@ APTTargetCharacter::APTTargetCharacter()
 {
 	BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComp"));
 	BoxComponent->InitBoxExtent(FVector(34.0f, 34.0f, 88.0f));
-	
+
 	RootComponent = BoxComponent;
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
 	MeshComponent->SetupAttachment(RootComponent);
-	
+
 	AbilitySystem = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystem");
 	AttributeSet = CreateDefaultSubobject<UPTAttributeSet>("AttributeSet");
 }
@@ -23,5 +23,6 @@ APTTargetCharacter::APTTargetCharacter()
 void APTTargetCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	
 	AbilitySystem->InitAbilityActorInfo(this, this);
 }

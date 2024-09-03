@@ -8,6 +8,11 @@
 void UPTAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
 	Super::PreAttributeChange(Attribute, NewValue);
+
+		 if (Attribute == GetHealthAttribute())
+		 {
+			 NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxHealth());
+		 }
 }
 
 bool UPTAttributeSet::PreGameplayEffectExecute(struct FGameplayEffectModCallbackData& Data)
@@ -18,23 +23,5 @@ bool UPTAttributeSet::PreGameplayEffectExecute(struct FGameplayEffectModCallback
 void UPTAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
-
-	//Getting Damage
-	if(Data.EvaluatedData.Attribute == GetDamageAttribute())
-	{
-		if(GetDamage() > 0.f)
-		{
-			const float CurrentHP = FMath::Clamp(GetHealth() - GetDamage(), 0.f, GetMaxHealth());
-			
-		}
-	}
-	//Getting Healing
-	if(Data.EvaluatedData.Attribute == GetHealingAttribute())
-	{
-		if(GetHealing() > 0.f)
-		{
-			const float CurrentHP = FMath::Clamp(GetHealth() + GetDamage(), 0.f, GetMaxHealth());
-		}
-	}
 	
 }

@@ -3,7 +3,6 @@
 #include "ParaTestProjectile.h"
 
 #include "AbilitySystemComponent.h"
-#include "ParaTestCharacter.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
 
@@ -39,11 +38,10 @@ void AParaTestProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor
 	// Only add impulse and destroy projectile if we hit a physics
 	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
 	{
-	//	OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
-
 		UAbilitySystemComponent* AbilitySystemComponent = OtherActor->GetComponentByClass<UAbilitySystemComponent>();
 		if(AbilitySystemComponent != nullptr)
 		{
+			//Apply ability effect to the actor that was hit
 			AbilitySystemComponent->ApplyGameplayEffectToSelf(HitEffect.GetDefaultObject(), 1.f, AbilitySystemComponent->MakeEffectContext());
 		}
 		Destroy();

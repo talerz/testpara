@@ -1,7 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "ParaTestGameMode.h"
-#include "ParaTestCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
 AParaTestGameMode::AParaTestGameMode()

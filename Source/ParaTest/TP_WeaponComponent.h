@@ -49,8 +49,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Weapon")
 	void Fire();
 
+	/** Change projectile type */
 	UFUNCTION(Category=Projectile)
-	void ChangeProjectile(const TSubclassOf<class AParaTestProjectile> NewProjectileClass);
+	void ChangeProjectile(const TSubclassOf<class AParaTestProjectile>& NewProjectileClass);
 protected:
 	/** Ends gameplay for this component. */
 	UFUNCTION()

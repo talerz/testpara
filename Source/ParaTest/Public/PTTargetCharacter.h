@@ -18,16 +18,16 @@ class PARATEST_API APTTargetCharacter : public AActor, public IAbilitySystemInte
 
 public:
 	virtual void BeginPlay() override;
-	/** Pawn mesh: 1st person view (arms; seen only by self) */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Character, meta = (AllowPrivateAccess = "true"))
-	UStaticMeshComponent* MeshComponent = nullptr;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Character, meta = (AllowPrivateAccess = "true"))
-	class UBoxComponent* BoxComponent= nullptr;
+	UStaticMeshComponent* MeshComponent = nullptr;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Character, meta = (AllowPrivateAccess = "true"))
+	class UBoxComponent* BoxComponent = nullptr;
 
 	/**Ability System**/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UAbilitySystemComponent* AbilitySystem= nullptr;
+	UAbilitySystemComponent* AbilitySystem = nullptr;
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override
 	{

@@ -26,16 +26,16 @@ public:
 
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 	UPROPERTY(BlueprintreadOnly, Category = "Health")
-	FGameplayAttributeData Health;
+	FGameplayAttributeData Health = 50;
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, Health);
 	UPROPERTY(BlueprintreadOnly, Category = "Health")
-	FGameplayAttributeData MaxHealth;
+	FGameplayAttributeData MaxHealth = 50;
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, MaxHealth);
 	UPROPERTY(BlueprintreadOnly, Category = "Health")
-	FGameplayAttributeData Healing;
+	FGameplayAttributeData Healing =1 ;
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, Healing);
 	UPROPERTY(BlueprintreadOnly, Category = "Health")
-	FGameplayAttributeData Damage;
+	FGameplayAttributeData Damage =1 ;
 
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, Damage);
 	

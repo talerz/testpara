@@ -8,10 +8,8 @@
 #include "ParaTestProjectile.h"
 #include "GameFramework/PlayerController.h"
 #include "Camera/PlayerCameraManager.h"
-#include "Kismet/GameplayStatics.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "PTGameplayAbility_Shoot.h"
 #include "Animation/AnimInstance.h"
 #include "Engine/LocalPlayer.h"
 #include "Engine/World.h"
@@ -31,55 +29,20 @@ void UTP_WeaponComponent::Fire()
 		return;
 	}
 	UAbilitySystemComponent* CharacterAbilitySystem = Character->AbilitySystem;
-	if(CharacterAbilitySystem == nullptr)
+	if (CharacterAbilitySystem == nullptr)
 	{
-		return; 
+		UE_LOG(LogTemp, Warning, TEXT("Ability system invalid for %s"), *Character->GetName());
+		return;
 	}
-	CharacterAbilitySystem->TryActivateAbilityByClass(FireAbility,true );
-	//a
-	// // Try and fire a projectile
-	// if (ProjectileClass != nullptr)
-	// {
-	// 	UWorld* const World = GetWorld();
-	// 	if (World != nullptr)
-	// 	{
-	// 		APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
-	// 		const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
-	// 		// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
-	// 		const FVector SpawnLocation = GetOwner()->GetActorLocation() + SpawnRotation.RotateVector(MuzzleOffset);
-	//
-	// 		//Set Spawn Collision Handling Override
-	// 		FActorSpawnParameters ActorSpawnParams;
-	// 		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
-	//
-	// 		// Spawn the projectile at the muzzle
-	// 		World->SpawnActor<AParaTestProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
-	// 	}
-	// }
-	//
-	// // Try and play the sound if specified
-	// if (FireSound != nullptr)
-	// {
-	// 	UGameplayStatics::PlaySoundAtLocation(this, FireSound, Character->GetActorLocation());
-	// }
-	//
-	// // Try and play a firing animation if specified
-	// if (FireAnimation != nullptr)
-	// {
-	// 	// Get the animation object for the arms mesh
-	// 	UAnimInstance* AnimInstance = Character->GetMesh1P()->GetAnimInstance();
-	// 	if (AnimInstance != nullptr)
-	// 	{
-	// 		AnimInstance->Montage_Play(FireAnimation, 1.f);
-	// 	}
-	// }
+	CharacterAbilitySystem->TryActivateAbilityByClass(FireAbility, true);
 }
 
-void UTP_WeaponComponent::ChangeProjectile(const TSubclassOf<class AParaTestProjectile> NewProjectileClass)
+void UTP_WeaponComponent::ChangeProjectile(const TSubclassOf<class AParaTestProjectile>& NewProjectileClass)
 {
-	if(NewProjectileClass == ProjectileClass)
+	if (NewProjectileClass == ProjectileClass)
 	{
-		//ADD LOG, no need to swap projectile to the same one
+		UE_LOG(LogTemp, Log, TEXT("Projectile was already set"));
+
 		return;
 	}
 	ProjectileClass = NewProjectileClass;
@@ -105,13 +68,15 @@ bool UTP_WeaponComponent::AttachWeapon(AParaTestCharacter* TargetCharacter)
 	// Set up action bindings
 	if (APlayerController* PlayerController = Cast<APlayerController>(Character->GetController()))
 	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<
+			UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
 			// Set the priority of the mapping to 1, so that it overrides the Jump action with the Fire action when using touch input
 			Subsystem->AddMappingContext(FireMappingContext, 1);
 		}
 
-		if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent))
+		if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(
+			PlayerController->InputComponent))
 		{
 			// Fire
 			EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &UTP_WeaponComponent::Fire);
@@ -130,7 +95,8 @@ void UTP_WeaponComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 	if (APlayerController* PlayerController = Cast<APlayerController>(Character->GetController()))
 	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<
+			UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
 			Subsystem->RemoveMappingContext(FireMappingContext);
 		}
