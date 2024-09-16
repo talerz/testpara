@@ -28,7 +28,7 @@ void UTP_WeaponComponent::Fire()
 	{
 		return;
 	}
-	UAbilitySystemComponent* CharacterAbilitySystem = Character->AbilitySystem;
+	UAbilitySystemComponent* CharacterAbilitySystem = Character->GetComponentByClass<UAbilitySystemComponent>();
 	if (CharacterAbilitySystem == nullptr)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Ability system invalid for %s"), *Character->GetName());
