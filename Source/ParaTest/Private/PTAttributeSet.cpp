@@ -5,6 +5,7 @@
 
 #include "GameplayEffectExtension.h"
 
+
 void UPTAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
 	Super::PreAttributeChange(Attribute, NewValue);
