@@ -3,10 +3,12 @@
 
 #include "PTGameplayAbility_Shoot.h"
 
+#include "AI/PTEnemyCharacter.h"
 #include "Kismet/GameplayStatics.h"
 #include "ParaTest/ParaTestCharacter.h"
 #include "ParaTest/ParaTestProjectile.h"
 #include "ParaTest/TP_WeaponComponent.h"
+#include "Player/PTPlayerCharacter.h"
 
 void UPTGameplayAbility_Shoot::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
                                                const FGameplayAbilityActorInfo* ActorInfo,
@@ -32,7 +34,7 @@ void UPTGameplayAbility_Shoot::EndAbility(const FGameplayAbilitySpecHandle Handl
 
 void UPTGameplayAbility_Shoot::Shoot()
 {
-	const ACharacter* Character = Cast<ACharacter>((GetAvatarActorFromActorInfo()));
+	const AParaTestCharacter* Character = Cast<AParaTestCharacter>((GetAvatarActorFromActorInfo()));
 	if (Character == nullptr || Character->GetController() == nullptr)
 	{
 		return;
@@ -64,8 +66,8 @@ void UPTGameplayAbility_Shoot::Shoot()
 			FRotator SpawnRotation;
 
 			APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
-			
-			if(IsValid(PlayerController))
+
+			if (IsValid(PlayerController))
 			{
 				SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
 			}
@@ -97,15 +99,23 @@ void UPTGameplayAbility_Shoot::Shoot()
 	// Try and play a firing animation if specified
 	if (Weapon->FireAnimation != nullptr)
 	{
-		const AParaTestCharacter* PlayerCharacter = Cast<AParaTestCharacter>(Character);
-		if(IsValid(PlayerCharacter))
 		// Get the animation object for the arms mesh
+
+		UAnimInstance* AnimInstance = Character->GetMyMesh()->GetAnimInstance();
+		if (AnimInstance != nullptr)
 		{
-			UAnimInstance* AnimInstance = PlayerCharacter->GetMesh1P()->GetAnimInstance();
-			if (AnimInstance != nullptr)
-			{
-				AnimInstance->Montage_Play(Weapon->FireAnimation, 1.f);
-			}
+			AnimInstance->Montage_Play(Character->FireAnimation, 1.f);
 		}
+
+		// const APTEnemyCharacter* EnemyCharacter = Cast<APTEnemyCharacter>(Character);
+		// if(IsValid(EnemyCharacter))
+		// 	// Get the animation object for the arms mesh
+		// {
+		// 	UAnimInstance* AnimInstance = EnemyCharacter->GetMesh()->GetAnimInstance();
+		// 	if (AnimInstance != nullptr)
+		// 	{
+		// 		AnimInstance->Montage_Play(EnemyCharacter->FireAnimation, 1.f);
+		// 	}
+		// }
 	}
 }

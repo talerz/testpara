@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class PARATEST_API APTEnemyCharacter : public ACharacter, public IAbilitySystemInterface
+class PARATEST_API APTEnemyCharacter : public AParaTestCharacter
 {
 	GENERATED_BODY()
 public:
@@ -19,19 +19,19 @@ public:
 	// UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Mesh, meta = (AllowPrivateAccess = "true"))
 	// USkeletalMeshComponent* Mesh;
 
-
-	/**Ability System**/
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UAbilitySystemComponent* AbilitySystem;
-
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override
-	{
-		return AbilitySystem;
-	}
-
-	UPROPERTY()
-	class UPTAttributeSet* AttributeSet;
-	
+	//
+	// /**Ability System**/
+	// UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	// UAbilitySystemComponent* AbilitySystem;
+	//
+	// virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override
+	// {
+	// 	return AbilitySystem;
+	// }
+	//
+	// UPROPERTY()
+	// class UPTAttributeSet* AttributeSet;
+	//
 protected:
 	virtual void BeginPlay();
 

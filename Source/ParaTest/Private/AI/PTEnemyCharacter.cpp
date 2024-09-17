@@ -16,16 +16,16 @@ APTEnemyCharacter::APTEnemyCharacter()
 	// Mesh->CastShadow = false;
 	// //Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	// Mesh->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
-
-	AbilitySystem = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystem");
-	AttributeSet = CreateDefaultSubobject<UPTAttributeSet>("AttributeSet");
+	//
+	// AbilitySystem = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystem");
+	// AttributeSet = CreateDefaultSubobject<UPTAttributeSet>("AttributeSet");
 }
 
 void APTEnemyCharacter::BeginPlay()
 {
-	Super::BeginPlay();
-	if(AbilitySystem)
-	{
-		AbilitySystem->InitAbilityActorInfo(this, this);
-	}
+	// Super::BeginPlay();
+	// if(AbilitySystem)
+	// {
+	// 	AbilitySystem->InitAbilityActorInfo(this, this);
+	// }
 }
