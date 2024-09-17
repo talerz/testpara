@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InputAction.h"
+#include "Camera/CameraComponent.h"
 #include "ParaTest/ParaTestCharacter.h"
 #include "PTPlayerCharacter.generated.h"
 
@@ -13,7 +15,7 @@ UCLASS()
 class PARATEST_API APTPlayerCharacter : public AParaTestCharacter
 {
 	GENERATED_BODY()
-	
+
 	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Mesh, meta = (AllowPrivateAccess = "true"))
 	USkeletalMeshComponent* Mesh1P;
@@ -29,34 +31,21 @@ class PARATEST_API APTPlayerCharacter : public AParaTestCharacter
 	/** Move Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* MoveAction;
-	
+
 public:
 	APTPlayerCharacter();
-	//
-	// /**Ability System**/
-	// UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	// UAbilitySystemComponent* AbilitySystem;
-	//
-	// virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override
-	// {
-	// 	return AbilitySystem;
-	// }
-	//
-	// UPROPERTY()
-	// class UPTAttributeSet* AttributeSet;
-	
+
 protected:
 	virtual void BeginPlay() override;
 
 public:
-		
 	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* LookAction;
 	/** Change Projectile Action */
 	UFUNCTION(BlueprintCallable, Category=Projectile)
 	void ChangeProjectile(const TSubclassOf<class AParaTestProjectile> NewProjectileClass);
-	
+
 protected:
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
@@ -69,9 +58,9 @@ protected:
 	// End of APawn interface
 
 public:
-	/** Returns Mesh1P subobject **///..
-	
-	virtual USkeletalMeshComponent* GetMyMesh()  const override { return Mesh1P; }
+	/** Returns Mesh1P subobject **/ //..
+
+	virtual USkeletalMeshComponent* GetMyMesh() const override { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 };

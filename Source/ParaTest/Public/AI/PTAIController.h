@@ -47,8 +47,6 @@ protected:
 	FName BBTarget = TEXT("Target");
 	//~~BB keys names
 
-	
-//UFUNCTION()
 private:
 	void UpdateTargetActor(const TObjectPtr<AActor>& NewTarget);
 };
