@@ -3,14 +3,18 @@
 
 #include "AI/PTAIController.h"
 
+#include "AI/PTEnemyCharacter.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "Perception/AIPerceptionComponent.h"
 
 APTAIController::APTAIController()
 {
 	AIBehaviorTreeComponent = CreateDefaultSubobject<UBehaviorTreeComponent>(TEXT("BehaviorTreeComponent"));
 	AIBlackboardComponent = CreateDefaultSubobject<UBlackboardComponent>(TEXT("BlackBoardComp"));
+	
+	AIPerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("PerceptionComponent"));
 }
 
 void APTAIController::OnPossess(APawn* InPawn)
@@ -21,8 +25,59 @@ void APTAIController::OnPossess(APawn* InPawn)
 
 	AIBlackboardComponent->InitializeBlackboard(*AIBehaviorTree->BlackboardAsset);
 	AIBehaviorTreeComponent->StartTree(*AIBehaviorTree);
-	if (const APTAIController* AIChar = Cast<APTAIController>(InPawn))
+	if (const APTEnemyCharacter* AIChar = Cast<APTEnemyCharacter>(InPawn))
 	{
 		//Setup BB values 
+	}
+	
+	AIPerceptionComponent->OnTargetPerceptionUpdated.AddDynamic(this, &APTAIController::OnTargetPerceptionUpdated);
+	AIPerceptionComponent->OnTargetPerceptionForgotten.AddDynamic(this, &APTAIController::OnTargetPerceptionForgotten);
+}
+
+void APTAIController::OnUnPossess()
+{
+	Super::OnUnPossess();
+}
+
+void APTAIController::OnTargetPerceptionUpdated(AActor* Actor, struct FAIStimulus Stimulus)
+{
+	if(!IsValid(Actor) )
+	{
+		return;
+	}
+	UpdateTargetActor(Actor);
+}
+
+void APTAIController::OnTargetPerceptionForgotten(AActor* Actor)
+{
+	if(!IsValid(Actor))
+	{
+		//log that sth went wrong
+		return;
+	}
+	if(Actor == CurrentTargetActor)
+	{
+		//clear target aggro
+		UpdateTargetActor(nullptr);
+	}
+}
+
+void APTAIController::UpdateTargetActor(const TObjectPtr<AActor>& NewTarget)
+{
+	if(!IsValid(NewTarget))
+	{
+		//Clear target - lost, killed etc
+	}
+	if(CurrentTargetActor == NewTarget)
+	{
+		//Log? No need to change target 
+	}
+	else
+	{
+		CurrentTargetActor = NewTarget;
+		if(IsValid(Blackboard))
+		{
+			Blackboard->SetValueAsObject(BBTarget, NewTarget);
+		}
 	}
 }
