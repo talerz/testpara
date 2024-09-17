@@ -49,7 +49,7 @@ void UTP_WeaponComponent::ChangeProjectile(const TSubclassOf<class AParaTestProj
 	ProjectileClass = NewProjectileClass;
 }
 
-bool UTP_WeaponComponent::AttachWeapon(ACharacter* TargetCharacter)
+bool UTP_WeaponComponent::AttachWeapon(AParaTestCharacter* TargetCharacter)
 {
 	Character = TargetCharacter;
 
@@ -61,7 +61,7 @@ bool UTP_WeaponComponent::AttachWeapon(ACharacter* TargetCharacter)
 
 	// Attach the weapon to the First Person Character
 	FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, true);
-	AttachToComponent(Character->GetMesh(), AttachmentRules, FName(TEXT("GripPoint")));
+	AttachToComponent(Character->GetMyMesh(), AttachmentRules, FName(TEXT("GripPoint")));
 
 	// add the weapon as an instance component to the character
 	Character->AddInstanceComponent(this);

@@ -43,7 +43,7 @@ public:
 
 	/** Attaches the actor to a FirstPersonCharacter */
 	UFUNCTION(BlueprintCallable, Category="Weapon")
-	bool AttachWeapon(ACharacter* TargetCharacter);
+	bool AttachWeapon(AParaTestCharacter* TargetCharacter);
 
 	/** Make the weapon Fire a Projectile */
 	UFUNCTION(BlueprintCallable, Category="Weapon")
@@ -63,5 +63,5 @@ protected:
 private:
 	/** The Character holding this weapon*/
 	UPROPERTY()
-	TObjectPtr<ACharacter> Character;
+	TObjectPtr<AParaTestCharacter> Character;
 };
