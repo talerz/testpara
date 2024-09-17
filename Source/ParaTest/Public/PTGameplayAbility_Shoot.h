@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable)
 class PARATEST_API UPTGameplayAbility_Shoot : public UGameplayAbility
 {
 	GENERATED_BODY()

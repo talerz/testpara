@@ -32,7 +32,7 @@ void UPTGameplayAbility_Shoot::EndAbility(const FGameplayAbilitySpecHandle Handl
 
 void UPTGameplayAbility_Shoot::Shoot()
 {
-	const AParaTestCharacter* Character = Cast<AParaTestCharacter>((GetAvatarActorFromActorInfo()));
+	const ACharacter* Character = Cast<ACharacter>((GetAvatarActorFromActorInfo()));
 	if (Character == nullptr || Character->GetController() == nullptr)
 	{
 		return;
@@ -61,8 +61,18 @@ void UPTGameplayAbility_Shoot::Shoot()
 		UWorld* const World = GetWorld();
 		if (World != nullptr)
 		{
+			FRotator SpawnRotation;
+
 			APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
-			const FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+			
+			if(IsValid(PlayerController))
+			{
+				SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+			}
+			else
+			{
+				SpawnRotation = Character->GetActorRotation();
+			}
 			// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
 			const FVector SpawnLocation = Weapon->GetSocketLocation(FName(TEXT("Ammo"))) + SpawnRotation.RotateVector(
 				Weapon->MuzzleOffset);
@@ -87,11 +97,15 @@ void UPTGameplayAbility_Shoot::Shoot()
 	// Try and play a firing animation if specified
 	if (Weapon->FireAnimation != nullptr)
 	{
+		const AParaTestCharacter* PlayerCharacter = Cast<AParaTestCharacter>(Character);
+		if(IsValid(PlayerCharacter))
 		// Get the animation object for the arms mesh
-		UAnimInstance* AnimInstance = Character->GetMesh1P()->GetAnimInstance();
-		if (AnimInstance != nullptr)
 		{
-			AnimInstance->Montage_Play(Weapon->FireAnimation, 1.f);
+			UAnimInstance* AnimInstance = PlayerCharacter->GetMesh1P()->GetAnimInstance();
+			if (AnimInstance != nullptr)
+			{
+				AnimInstance->Montage_Play(Weapon->FireAnimation, 1.f);
+			}
 		}
 	}
 }
