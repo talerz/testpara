@@ -8,7 +8,6 @@
 #include "Logging/LogMacros.h"
 #include "ParaTestCharacter.generated.h"
 
-class USkeletalMeshComponent;
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
 UCLASS(config=Game)
@@ -31,9 +30,17 @@ public:
 	UPROPERTY()
 	class UPTAttributeSet* AttributeSet;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability System")
+	TArray<TSubclassOf<class UGameplayAbility>> CurrentAbilities;
+	
+	/**Combat**/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	UAnimMontage* FireAnimation;
 
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	class UPTTokenComponent* TokenComponent;
+	
 	UFUNCTION(BlueprintCallable)
 	virtual USkeletalMeshComponent* GetMyMesh()  const { return GetMesh(); }
 protected:

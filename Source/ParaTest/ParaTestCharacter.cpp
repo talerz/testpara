@@ -8,6 +8,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "PTAttributeSet.h"
 #include "Engine/LocalPlayer.h"
+#include "Player/PTTokenComponent.h"
 
 class UTP_WeaponComponent;
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
@@ -19,7 +20,7 @@ AParaTestCharacter::AParaTestCharacter()
 	
 	AbilitySystem = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystem");
 	AttributeSet = CreateDefaultSubobject<UPTAttributeSet>("AttributeSet");
-
+	TokenComponent = CreateDefaultSubobject<UPTTokenComponent>("TokenComponent");
 }
 
 void AParaTestCharacter::BeginPlay()
@@ -29,6 +30,11 @@ void AParaTestCharacter::BeginPlay()
 	if(AbilitySystem)
 	{
 		AbilitySystem->InitAbilityActorInfo(this, this);
+		for (auto& Ability  : CurrentAbilities)
+		{
+			FGameplayAbilitySpec AbilitySpec = AbilitySystem->BuildAbilitySpecFromClass(Ability);
+			AbilitySystem->GiveAbility(AbilitySpec);
+		}
 	}
 	
 }

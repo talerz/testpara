@@ -16,11 +16,14 @@ void UPTGameplayAbility_Shoot::ActivateAbility(const FGameplayAbilitySpecHandle 
                                                const FGameplayEventData* TriggerEventData)
 {
 	Shoot();
+	
 	if (!CommitAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo))
 	{
 		CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
 	}
+	
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
+	
 	EndAbility(Handle, ActorInfo, ActivationInfo, false, false);
 }
 
@@ -58,7 +61,7 @@ void UPTGameplayAbility_Shoot::Shoot()
 	}
 
 	// Try and fire a projectile
-	if (Weapon->ProjectileClass != nullptr)
+	if (ProjectileClass != nullptr)
 	{
 		UWorld* const World = GetWorld();
 		if (World != nullptr)
@@ -85,7 +88,7 @@ void UPTGameplayAbility_Shoot::Shoot()
 				ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
 			// Spawn the projectile at the muzzle
-			World->SpawnActor<AParaTestProjectile>(Weapon->ProjectileClass, SpawnLocation, SpawnRotation,
+			World->SpawnActor<AParaTestProjectile>(ProjectileClass, SpawnLocation, SpawnRotation,
 			                                       ActorSpawnParams);
 		}
 	}
@@ -106,16 +109,5 @@ void UPTGameplayAbility_Shoot::Shoot()
 		{
 			AnimInstance->Montage_Play(Character->FireAnimation, 1.f);
 		}
-
-		// const APTEnemyCharacter* EnemyCharacter = Cast<APTEnemyCharacter>(Character);
-		// if(IsValid(EnemyCharacter))
-		// 	// Get the animation object for the arms mesh
-		// {
-		// 	UAnimInstance* AnimInstance = EnemyCharacter->GetMesh()->GetAnimInstance();
-		// 	if (AnimInstance != nullptr)
-		// 	{
-		// 		AnimInstance->Montage_Play(EnemyCharacter->FireAnimation, 1.f);
-		// 	}
-		// }
 	}
 }
