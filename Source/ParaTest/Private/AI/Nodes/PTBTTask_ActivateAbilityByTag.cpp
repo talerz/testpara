@@ -53,10 +53,6 @@ EBTNodeResult::Type UPTBTTask_ActivateAbilityByTag::ActivateAbilityByTag(const T
 		{
 			return EBTNodeResult::Failed;
 		}
-		if (!ActivatedAbilitySpec.Ability)
-		{
-			return EBTNodeResult::Failed;
-		}
 		return EBTNodeResult::Succeeded;
 	}
 	return EBTNodeResult::Failed;

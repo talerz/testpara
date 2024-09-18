@@ -8,6 +8,7 @@
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "Perception/AIPerceptionComponent.h"
+#include "Player/PTPlayerCharacter.h"
 
 APTAIController::APTAIController()
 {
@@ -41,7 +42,7 @@ void APTAIController::OnUnPossess()
 
 void APTAIController::OnTargetPerceptionUpdated(AActor* Actor, struct FAIStimulus Stimulus)
 {
-	if(!IsValid(Actor) )
+	if(!IsValid(Actor) || !Cast<APTPlayerCharacter>(Actor))
 	{
 		return;
 	}
