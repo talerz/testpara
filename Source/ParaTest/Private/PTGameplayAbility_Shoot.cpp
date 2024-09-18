@@ -15,15 +15,14 @@ void UPTGameplayAbility_Shoot::ActivateAbility(const FGameplayAbilitySpecHandle 
                                                const FGameplayAbilityActivationInfo ActivationInfo,
                                                const FGameplayEventData* TriggerEventData)
 {
-
 	if (!CommitAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo))
 	{
 		CancelAbility(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, true);
 	}
 	Shoot();
-	
+
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
-	
+
 	EndAbility(Handle, ActorInfo, ActivationInfo, false, false);
 }
 
@@ -98,25 +97,15 @@ void UPTGameplayAbility_Shoot::Shoot()
 	{
 		UGameplayStatics::PlaySoundAtLocation(this, Weapon->FireSound, Character->GetActorLocation());
 	}
-if(Cast<APTPlayerCharacter>(Character) != nullptr)
-{
-	MontageToPlay = nullptr;
-	UAnimInstance* AnimInstance = Character->GetMyMesh()->GetAnimInstance();
+
+	//Player doesnt use normal mesh, so need to play it on different anim instance
+	if (Cast<APTPlayerCharacter>(Character) != nullptr)
+	{
+		MontageToPlay = nullptr;
+		UAnimInstance* AnimInstance = Character->GetMyMesh()->GetAnimInstance();
 		if (AnimInstance != nullptr)
 		{
 			AnimInstance->Montage_Play(MontageToPlay1p, 1.f);
 		}
-}
-
-	// Try and play a firing animation if specified
-///	if (Weapon->FireAnimation != nullptr)
-	//{
-		// Get the animation object for the arms mesh
-
-		//UAnimInstance* AnimInstance = Character->GetMyMesh()->GetAnimInstance();
-	//	if (AnimInstance != nullptr)
-		//{
-//AnimInstance->Montage_Play(Character->FireAnimation, 1.f);
-		//}
-	//}
+	}
 }

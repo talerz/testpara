@@ -57,13 +57,7 @@ EBTNodeResult::Type UPTBTTask_ActivateAbilityByTag::ActivateAbilityByTag(const T
 		{
 			return EBTNodeResult::Failed;
 		}
-		//Node will finish when the ability is finished
-		if (UGameplayAbility* AbilityInstance = ActivatedAbilitySpec.GetPrimaryInstance())
-		{
-			AbilityInstance->OnGameplayAbilityEnded.AddUObject(
-				this, &UPTBTTask_ActivateAbilityByTag::OnActivatedAbilityFinsished);
-			return EBTNodeResult::InProgress;
-		}
+		return EBTNodeResult::Succeeded;
 	}
 	return EBTNodeResult::Failed;
 }
@@ -107,9 +101,7 @@ bool UPTBTTask_ActivateAbilityByTag::TryActivateAbilityByTag(UAbilitySystemCompo
 	return false;
 }
 
-void UPTBTTask_ActivateAbilityByTag::OnActivatedAbilityFinsished(UGameplayAbility* FinishedAbility)
+FString UPTBTTask_ActivateAbilityByTag::GetStaticDescription() const
 {
-	bNotifyTaskFinished = true;
-	UBehaviorTreeComponent* BehaviorTree = Cast<UBehaviorTreeComponent>(GetOuter());
-	FinishLatentTask(*BehaviorTree, EBTNodeResult::Succeeded);
+	return FString::Printf(TEXT("Ability Tag: %s"), *AbilityTag.ToStringSimple(false));
 }

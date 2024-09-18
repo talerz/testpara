@@ -24,9 +24,9 @@ class PARATEST_API UPTBTTask_ActivateAbilityByTag : public UBTTaskNode
 
 	bool TryActivateAbilityByTag(UAbilitySystemComponent* AbilitySystem, const FGameplayTagContainer& Tags, FGameplayAbilitySpec& ActivatedAbilitySpec);
 	
-	void OnActivatedAbilityFinsished(UGameplayAbility* FinishedAbility);
-	
-	
+	FString GetStaticDescription() const;
+
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FGameplayTagContainer AbilityTag;
 };

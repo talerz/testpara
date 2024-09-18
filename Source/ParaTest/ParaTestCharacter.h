@@ -33,11 +33,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability System")
 	TArray<TSubclassOf<class UGameplayAbility>> CurrentAbilities;
 	
-	/**Combat**/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	UAnimMontage* FireAnimation;
-
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	class UPTTokenComponent* TokenComponent;
 	
