@@ -14,7 +14,7 @@ APTAIController::APTAIController()
 {
 	AIBehaviorTreeComponent = CreateDefaultSubobject<UBehaviorTreeComponent>(TEXT("BehaviorTreeComponent"));
 	AIBlackboardComponent = CreateDefaultSubobject<UBlackboardComponent>(TEXT("BlackBoardComp"));
-	
+
 	AIPerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("PerceptionComponent"));
 }
 
@@ -26,11 +26,17 @@ void APTAIController::OnPossess(APawn* InPawn)
 
 	AIBlackboardComponent->InitializeBlackboard(*AIBehaviorTree->BlackboardAsset);
 	AIBehaviorTreeComponent->StartTree(*AIBehaviorTree);
+
+	//Setup BB values 
 	if (const APTEnemyCharacter* AIChar = Cast<APTEnemyCharacter>(InPawn))
 	{
-		//Setup BB values 
+		Blackboard->SetValueAsFloat("MaxNormalAttackRadius", AIChar->MaxNormalAttackRadius);
+		Blackboard->SetValueAsFloat("MaxFireAttackRadius", AIChar->MaxFireAttackRadius);
+		
+		Blackboard->SetValueAsFloat("MinNormalAttackRadius", AIChar->MinNormalAttackRadius);
+		Blackboard->SetValueAsFloat("MinFireAttackRadius", AIChar->MinFireAttackRadius);
 	}
-	
+
 	AIPerceptionComponent->OnTargetPerceptionUpdated.AddDynamic(this, &APTAIController::OnTargetPerceptionUpdated);
 	AIPerceptionComponent->OnTargetPerceptionForgotten.AddDynamic(this, &APTAIController::OnTargetPerceptionForgotten);
 }
@@ -42,7 +48,7 @@ void APTAIController::OnUnPossess()
 
 void APTAIController::OnTargetPerceptionUpdated(AActor* Actor, struct FAIStimulus Stimulus)
 {
-	if(!IsValid(Actor) || !Cast<APTPlayerCharacter>(Actor))
+	if (!IsValid(Actor) || !Cast<APTPlayerCharacter>(Actor))
 	{
 		return;
 	}
@@ -51,12 +57,12 @@ void APTAIController::OnTargetPerceptionUpdated(AActor* Actor, struct FAIStimulu
 
 void APTAIController::OnTargetPerceptionForgotten(AActor* Actor)
 {
-	if(!IsValid(Actor))
+	if (!IsValid(Actor))
 	{
 		//log that sth went wrong
 		return;
 	}
-	if(Actor == CurrentTargetActor)
+	if (Actor == CurrentTargetActor)
 	{
 		//clear target aggro
 		UpdateTargetActor(nullptr);
@@ -65,18 +71,18 @@ void APTAIController::OnTargetPerceptionForgotten(AActor* Actor)
 
 void APTAIController::UpdateTargetActor(const TObjectPtr<AActor>& NewTarget)
 {
-	if(!IsValid(NewTarget))
+	if (!IsValid(NewTarget))
 	{
 		//Clear target - lost, killed etc
 	}
-	if(CurrentTargetActor == NewTarget)
+	if (CurrentTargetActor == NewTarget)
 	{
 		//Log? No need to change target 
 	}
 	else
 	{
 		CurrentTargetActor = NewTarget;
-		if(IsValid(Blackboard))
+		if (IsValid(Blackboard))
 		{
 			Blackboard->SetValueAsObject(BBTarget, NewTarget);
 		}
