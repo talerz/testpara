@@ -22,7 +22,7 @@ void UPTGameplayAbility_Shoot::ActivateAbility(const FGameplayAbilitySpecHandle 
 	Shoot();
 
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
-
+	
 	EndAbility(Handle, ActorInfo, ActivationInfo, false, false);
 }
 
@@ -31,6 +31,9 @@ void UPTGameplayAbility_Shoot::EndAbility(const FGameplayAbilitySpecHandle Handl
                                           const FGameplayAbilityActivationInfo ActivationInfo,
                                           bool bReplicateEndAbility, bool bWasCancelled)
 {
+	
+
+	CommitAbilityCooldown(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, false);
 	Super::EndAbility(Handle, ActorInfo, ActivationInfo, bReplicateEndAbility, bWasCancelled);
 }
 
@@ -107,5 +110,10 @@ void UPTGameplayAbility_Shoot::Shoot()
 		{
 			AnimInstance->Montage_Play(MontageToPlay1p, 1.f);
 		}
+	}
+	UAnimInstance* AnimInstance = Character->GetMyMesh()->GetAnimInstance();
+	if (AnimInstance != nullptr)
+	{
+		AnimInstance->Montage_Play(MontageToPlay, 1.f);
 	}
 }
