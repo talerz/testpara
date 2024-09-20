@@ -20,11 +20,12 @@ UCLASS()
 class PARATEST_API UPTAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
+
 public:
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 	virtual bool PreGameplayEffectExecute(struct FGameplayEffectModCallbackData& Data) override;
-
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
+
 	UPROPERTY(BlueprintreadOnly, Category = "Health")
 	FGameplayAttributeData Health = 50;
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, Health);
@@ -32,11 +33,10 @@ public:
 	FGameplayAttributeData MaxHealth = 50;
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, MaxHealth);
 	UPROPERTY(BlueprintreadOnly, Category = "Health")
-	FGameplayAttributeData Healing =1 ;
+	FGameplayAttributeData Healing = 1;
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, Healing);
 	UPROPERTY(BlueprintreadOnly, Category = "Health")
-	FGameplayAttributeData Damage =1 ;
+	FGameplayAttributeData Damage = 1;
 
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, Damage);
-	
 };

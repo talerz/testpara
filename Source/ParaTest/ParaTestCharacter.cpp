@@ -17,24 +17,34 @@ AParaTestCharacter::AParaTestCharacter()
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
-	
+
 	AbilitySystem = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystem");
 	AttributeSet = CreateDefaultSubobject<UPTAttributeSet>("AttributeSet");
 	TokenComponent = CreateDefaultSubobject<UPTTokenComponent>("TokenComponent");
+}
+
+void AParaTestCharacter::OnDeathStarted_Implementation( float EffectMagnitude)
+{
+	//TODO: Add death anims, FXs
+	Destroy();
+}
+
+void AParaTestCharacter::OnHit_Implementation( float EffectMagnitude)
+{
+	//TODO: Add hit anims	
 }
 
 void AParaTestCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
-	if(AbilitySystem)
+	if (AbilitySystem)
 	{
 		AbilitySystem->InitAbilityActorInfo(this, this);
-		for (auto& Ability  : CurrentAbilities)
+		for (auto& Ability : CurrentAbilities)
 		{
 			FGameplayAbilitySpec AbilitySpec = AbilitySystem->BuildAbilitySpecFromClass(Ability);
 			AbilitySystem->GiveAbility(AbilitySpec);
 		}
 	}
-	
 }

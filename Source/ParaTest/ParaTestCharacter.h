@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
+#include "GameplayEffect.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "ParaTestCharacter.generated.h"
@@ -38,8 +39,15 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	virtual USkeletalMeshComponent* GetMyMesh()  const { return GetMesh(); }
+
+	UFUNCTION(BlueprintNativeEvent)
+	void OnDeathStarted( float EffectMagnitude);
+	 
+	UFUNCTION(BlueprintNativeEvent)
+	void OnHit( float EffectMagnitude);
 protected:
 	virtual void BeginPlay() override;
+
 
 };
 

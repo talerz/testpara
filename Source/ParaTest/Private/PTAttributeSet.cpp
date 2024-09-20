@@ -4,6 +4,7 @@
 #include "ParaTest/Public/PTAttributeSet.h"
 
 #include "GameplayEffectExtension.h"
+#include "ParaTest/ParaTestCharacter.h"
 
 
 void UPTAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -25,4 +26,22 @@ void UPTAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModC
 {
 	Super::PostGameplayEffectExecute(Data);
 	
+	const bool bDead = GetHealth() <= 0.0f;
+	const FGameplayEffectContextHandle& Context = Data.EffectSpec.GetEffectContext();
+	AActor* Instigator = Context.GetOriginalInstigator();
+	AActor* Causer = Context.GetEffectCauser();
+	float Magnitude = FMath::Abs(Data.EvaluatedData.Magnitude);
+	
+	AParaTestCharacter* Character = Cast<AParaTestCharacter>(Instigator);
+	if(!Character)
+	{
+		return;
+	}
+	if(bDead)
+	{
+		Character->OnDeathStarted(Magnitude);
+		//OnDeathStarted.Broadcast(Instigator, Causer, Data.EffectSpec, Magnitude);
+		return;
+	}
+	Character->OnHit(Magnitude);
 }
