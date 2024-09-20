@@ -40,7 +40,6 @@ void UPTAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModC
 	if(bDead)
 	{
 		Character->OnDeathStarted(Magnitude);
-		//OnDeathStarted.Broadcast(Instigator, Causer, Data.EffectSpec, Magnitude);
 		return;
 	}
 	Character->OnHit(Magnitude);

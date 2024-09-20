@@ -32,7 +32,6 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
 	TObjectPtr<UAIPerceptionComponent> AIPerceptionComponent;
 	
-	
 	UPROPERTY()
 	TObjectPtr<AActor> CurrentTargetActor = nullptr;
 	
@@ -45,7 +44,13 @@ protected:
 	//BB keys names
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "BlackBoard")
 	FName BBTarget = TEXT("Target");
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "BlackBoard")
+	FName BBStaggered = TEXT("bStaggered");
 	//~~BB keys names
+
+	UFUNCTION(BlueprintCallable)
+	void ChangeStaggeredState(bool bStagger);
 
 private:
 	void UpdateTargetActor(const TObjectPtr<AActor>& NewTarget);

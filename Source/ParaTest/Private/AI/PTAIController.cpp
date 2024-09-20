@@ -32,7 +32,7 @@ void APTAIController::OnPossess(APawn* InPawn)
 	{
 		Blackboard->SetValueAsFloat("MaxNormalAttackRadius", AIChar->MaxNormalAttackRadius);
 		Blackboard->SetValueAsFloat("MaxFireAttackRadius", AIChar->MaxFireAttackRadius);
-		
+
 		Blackboard->SetValueAsFloat("MinNormalAttackRadius", AIChar->MinNormalAttackRadius);
 		Blackboard->SetValueAsFloat("MinFireAttackRadius", AIChar->MinFireAttackRadius);
 	}
@@ -59,7 +59,6 @@ void APTAIController::OnTargetPerceptionForgotten(AActor* Actor)
 {
 	if (!IsValid(Actor))
 	{
-		//log that sth went wrong
 		return;
 	}
 	if (Actor == CurrentTargetActor)
@@ -69,15 +68,26 @@ void APTAIController::OnTargetPerceptionForgotten(AActor* Actor)
 	}
 }
 
+void APTAIController::ChangeStaggeredState(bool bStagger)
+{
+	if (Blackboard != nullptr)
+	{
+		if (Blackboard->GetValueAsBool("Staggered") != bStagger)
+		{
+			Blackboard->SetValueAsBool("Staggered", bStagger);
+		}
+	}
+}
+
 void APTAIController::UpdateTargetActor(const TObjectPtr<AActor>& NewTarget)
 {
 	if (!IsValid(NewTarget))
 	{
-		//Clear target - lost, killed etc
+		Blackboard->SetValueAsObject(BBTarget, nullptr);
 	}
 	if (CurrentTargetActor == NewTarget)
 	{
-		//Log? No need to change target 
+		return;
 	}
 	else
 	{

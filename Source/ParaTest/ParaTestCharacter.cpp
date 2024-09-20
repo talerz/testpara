@@ -26,6 +26,10 @@ AParaTestCharacter::AParaTestCharacter()
 void AParaTestCharacter::OnDeathStarted_Implementation( float EffectMagnitude)
 {
 	//TODO: Add death anims, FXs
+	for (UActorComponent* Component : GetInstanceComponents())
+	{
+		Component->DestroyComponent();
+	}
 	Destroy();
 }
 

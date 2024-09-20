@@ -24,6 +24,8 @@ public:
 	float MinNormalAttackRadius = 200.f;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat")
 	float MinFireAttackRadius = 300.f;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat")
+	float StaggerTime = 4.f;
 protected:
 	virtual void BeginPlay() override;
 
