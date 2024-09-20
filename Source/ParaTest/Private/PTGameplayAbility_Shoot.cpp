@@ -3,7 +3,6 @@
 
 #include "PTGameplayAbility_Shoot.h"
 
-#include "AI/PTEnemyCharacter.h"
 #include "Kismet/GameplayStatics.h"
 #include "ParaTest/ParaTestCharacter.h"
 #include "ParaTest/ParaTestProjectile.h"

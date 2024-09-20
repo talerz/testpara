@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Abilities/GameplayAbility.h"
 #include "Abilities/GameplayAbility_Montage.h"
 #include "PTGameplayAbility_Shoot.generated.h"
 

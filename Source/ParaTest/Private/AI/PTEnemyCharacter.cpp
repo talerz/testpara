@@ -3,9 +3,6 @@
 
 #include "AI/PTEnemyCharacter.h"
 
-#include "AbilitySystemComponent.h"
-#include "PTAttributeSet.h"
-
 APTEnemyCharacter::APTEnemyCharacter()
 {
 }
