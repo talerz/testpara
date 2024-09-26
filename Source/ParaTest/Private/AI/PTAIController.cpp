@@ -3,6 +3,7 @@
 
 #include "AI/PTAIController.h"
 
+#include "AI/PTPatrolPoint.h"
 #include "AI/PTEnemyCharacter.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
@@ -46,8 +47,26 @@ void APTAIController::OnUnPossess()
 	Super::OnUnPossess();
 }
 
+void APTAIController::UpdatePatrolPoint(const TObjectPtr<APTPatrolPoint>& NewPatrolPoint)
+{
+	if (NewPatrolPoint == nullptr)
+	{
+		return;
+	}
+
+	if (IsValid(Blackboard))
+	{
+		Blackboard->SetValueAsObject(BBKey_PatrolPoint, NewPatrolPoint);
+	}
+}
+
 void APTAIController::OnTargetPerceptionUpdated(AActor* Actor, struct FAIStimulus Stimulus)
 {
+	//Clear Target if not sensed
+	if(!Stimulus.WasSuccessfullySensed())
+	{
+		UpdateTargetActor(nullptr);
+	}
 	if (!IsValid(Actor) || !Cast<APTPlayerCharacter>(Actor))
 	{
 		return;

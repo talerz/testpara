@@ -9,7 +9,6 @@
 #include "Logging/LogMacros.h"
 #include "ParaTestCharacter.generated.h"
 
-DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
 UCLASS(config=Game)
 class AParaTestCharacter : public ACharacter, public IAbilitySystemInterface

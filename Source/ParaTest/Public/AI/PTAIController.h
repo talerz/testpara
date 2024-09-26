@@ -14,27 +14,31 @@ UCLASS()
 class PARATEST_API APTAIController : public AAIController
 {
 	GENERATED_BODY()
+
 public:
 	APTAIController();
 	virtual void OnPossess(APawn* InPawn) override;
 
 	virtual void OnUnPossess() override;
+
+	void UpdatePatrolPoint(const TObjectPtr<class APTPatrolPoint>& NewPatrolPoint);
+
 protected:
 	UPROPERTY()
-	TObjectPtr< UBehaviorTreeComponent> AIBehaviorTreeComponent;
-	
+	TObjectPtr<UBehaviorTreeComponent> AIBehaviorTreeComponent;
+
 	UPROPERTY(BlueprintReadOnly, Category = "AI")
-	TObjectPtr< UBlackboardComponent> AIBlackboardComponent;
+	TObjectPtr<UBlackboardComponent> AIBlackboardComponent;
 
 	UPROPERTY(EditDefaultsOnly, Category = "AI")
-	TObjectPtr< UBehaviorTree> AIBehaviorTree;
-	
+	TObjectPtr<UBehaviorTree> AIBehaviorTree;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
 	TObjectPtr<UAIPerceptionComponent> AIPerceptionComponent;
-	
+
 	UPROPERTY()
 	TObjectPtr<AActor> CurrentTargetActor = nullptr;
-	
+
 	UFUNCTION(BlueprintCallable)
 	void OnTargetPerceptionUpdated(AActor* Actor, struct FAIStimulus Stimulus);
 
@@ -44,9 +48,11 @@ protected:
 	//BB keys names
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "BlackBoard")
 	FName BBTarget = TEXT("Target");
-	
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "BlackBoard")
 	FName BBStaggered = TEXT("bStaggered");
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "BlackBoard")
+	FName BBKey_PatrolPoint = FName("PatrolPoint");
 	//~~BB keys names
 
 	UFUNCTION(BlueprintCallable)

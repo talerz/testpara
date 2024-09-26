@@ -11,7 +11,6 @@
 #include "Player/PTTokenComponent.h"
 
 class UTP_WeaponComponent;
-DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 AParaTestCharacter::AParaTestCharacter()
 {
