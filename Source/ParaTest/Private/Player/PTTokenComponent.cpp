@@ -9,7 +9,11 @@ UPTTokenComponent::UPTTokenComponent()
 
 bool UPTTokenComponent::TryReserveToken(const EToken Token)
 {
-	int32 CurrentTokenNumber = BaseTokensAmount.FindRef(Token);
+	if(!TokenSettings)
+	{
+		return false;
+	}
+	int32 CurrentTokenNumber = TokenSettings->BaseTokensAmount.FindRef(Token);
 	if (CurrentTokenNumber <= 0)
 	{
 		//All tokens are taken
@@ -18,12 +22,16 @@ bool UPTTokenComponent::TryReserveToken(const EToken Token)
 
 	CurrentTokenNumber = CurrentTokenNumber - 1;
 
-	BaseTokensAmount.FindOrAdd(Token) = CurrentTokenNumber;
+	TokenSettings->BaseTokensAmount.FindOrAdd(Token) = CurrentTokenNumber;
 	return true;
 }
 
 void UPTTokenComponent::ReturnToken(const EToken Token)
 {
-	const int32 CurrentTokenNumber = 1 + BaseTokensAmount.FindRef(Token);
-	BaseTokensAmount.FindOrAdd(Token) = CurrentTokenNumber;
+	if(!TokenSettings)
+	{
+		return;
+	}
+	const int32 CurrentTokenNumber = 1 + TokenSettings->BaseTokensAmount.FindRef(Token);
+	TokenSettings->BaseTokensAmount.FindOrAdd(Token) = CurrentTokenNumber;
 }
