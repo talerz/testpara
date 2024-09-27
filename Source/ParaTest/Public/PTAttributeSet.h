@@ -29,16 +29,16 @@ public:
 	UPROPERTY(BlueprintreadOnly, Category = "Health")
 	FGameplayAttributeData Health = 50.f;
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, Health);
-
 	UPROPERTY(BlueprintreadOnly, Category = "Health")
 	FGameplayAttributeData MaxHealth = 50.f;
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, MaxHealth);
-
 	UPROPERTY(BlueprintreadOnly, Category = "Health")
 	FGameplayAttributeData Healing = 1.f;
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, Healing);
 
-	UPROPERTY(BlueprintreadOnly, Category = "Health")
+
+	//TODO: Should be moved to combat attribute set
+	UPROPERTY(BlueprintreadOnly, Category = "Combat")
 	FGameplayAttributeData Damage = 1.f;
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, Damage);
 
