@@ -27,16 +27,38 @@ public:
 	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
 
 	UPROPERTY(BlueprintreadOnly, Category = "Health")
-	FGameplayAttributeData Health = 50;
+	FGameplayAttributeData Health = 50.f;
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, Health);
-	UPROPERTY(BlueprintreadOnly, Category = "Health")
-	FGameplayAttributeData MaxHealth = 50;
-	ATTRIBUTE_ACCESSORS(UPTAttributeSet, MaxHealth);
-	UPROPERTY(BlueprintreadOnly, Category = "Health")
-	FGameplayAttributeData Healing = 1;
-	ATTRIBUTE_ACCESSORS(UPTAttributeSet, Healing);
-	UPROPERTY(BlueprintreadOnly, Category = "Health")
-	FGameplayAttributeData Damage = 1;
 
+	UPROPERTY(BlueprintreadOnly, Category = "Health")
+	FGameplayAttributeData MaxHealth = 50.f;
+	ATTRIBUTE_ACCESSORS(UPTAttributeSet, MaxHealth);
+
+	UPROPERTY(BlueprintreadOnly, Category = "Health")
+	FGameplayAttributeData Healing = 1.f;
+	ATTRIBUTE_ACCESSORS(UPTAttributeSet, Healing);
+
+	UPROPERTY(BlueprintreadOnly, Category = "Health")
+	FGameplayAttributeData Damage = 1.f;
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, Damage);
+
+
+	UPROPERTY(BlueprintreadOnly, Category = "Combat")
+	FGameplayAttributeData MaxNormalAttackRadius = 400.f;
+	ATTRIBUTE_ACCESSORS(UPTAttributeSet, MaxNormalAttackRadius);
+	UPROPERTY(BlueprintreadOnly, Category = "Combat")
+	FGameplayAttributeData MaxFireAttackRadius = 600.f;
+	ATTRIBUTE_ACCESSORS(UPTAttributeSet, MaxFireAttackRadius);
+
+	UPROPERTY(BlueprintreadOnly, Category = "Combat")
+	FGameplayAttributeData MinNormalAttackRadius = 200.f;
+	ATTRIBUTE_ACCESSORS(UPTAttributeSet, MinNormalAttackRadius);
+	UPROPERTY(BlueprintreadOnly, Category = "Combat")
+	FGameplayAttributeData MinFireAttackRadius = 300.f;
+	ATTRIBUTE_ACCESSORS(UPTAttributeSet, MinFireAttackRadius);
+
+	UPROPERTY(BlueprintreadOnly, Category = "Combat")
+	FGameplayAttributeData StaggerTime = 4.f;
+	ATTRIBUTE_ACCESSORS(UPTAttributeSet, StaggerTime);
+
 };
