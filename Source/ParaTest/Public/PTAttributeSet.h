@@ -47,16 +47,22 @@ public:
 	FGameplayAttributeData MaxNormalAttackRadius = 400.f;
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, MaxNormalAttackRadius);
 	UPROPERTY(BlueprintreadOnly, Category = "Combat")
-	FGameplayAttributeData MaxFireAttackRadius = 600.f;
-	ATTRIBUTE_ACCESSORS(UPTAttributeSet, MaxFireAttackRadius);
-
-	UPROPERTY(BlueprintreadOnly, Category = "Combat")
 	FGameplayAttributeData MinNormalAttackRadius = 200.f;
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, MinNormalAttackRadius);
 	UPROPERTY(BlueprintreadOnly, Category = "Combat")
+	FGameplayAttributeData NormalAttackCooldown = 5.f;
+	ATTRIBUTE_ACCESSORS(UPTAttributeSet, NormalAttackCooldown);
+	
+	UPROPERTY(BlueprintreadOnly, Category = "Combat")
+	FGameplayAttributeData MaxFireAttackRadius = 600.f;
+	ATTRIBUTE_ACCESSORS(UPTAttributeSet, MaxFireAttackRadius);
+	UPROPERTY(BlueprintreadOnly, Category = "Combat")
 	FGameplayAttributeData MinFireAttackRadius = 300.f;
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, MinFireAttackRadius);
-
+	UPROPERTY(BlueprintreadOnly, Category = "Combat")
+	FGameplayAttributeData FireAttackCooldown = 5.f;
+	ATTRIBUTE_ACCESSORS(UPTAttributeSet,  FireAttackCooldown);
+	
 	UPROPERTY(BlueprintreadOnly, Category = "Combat")
 	FGameplayAttributeData StaggerTime = 4.f;
 	ATTRIBUTE_ACCESSORS(UPTAttributeSet, StaggerTime);
