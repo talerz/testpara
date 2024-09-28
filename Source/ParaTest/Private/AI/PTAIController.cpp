@@ -63,10 +63,11 @@ void APTAIController::UpdatePatrolPoint(const TObjectPtr<APTPatrolPoint>& NewPat
 void APTAIController::OnTargetPerceptionUpdated(AActor* Actor, struct FAIStimulus Stimulus)
 {
 	//Clear Target if not sensed
-	if(!Stimulus.WasSuccessfullySensed())
-	{
-		UpdateTargetActor(nullptr);
-	}
+	// if (!Stimulus.WasSuccessfullySensed())
+	// {
+	// 	UE_LOG(LogTemp, Error, L"I WASNT SENSED ??? ")
+	// 	UpdateTargetActor(nullptr);
+	// }
 	if (!IsValid(Actor) || !Cast<APTPlayerCharacter>(Actor))
 	{
 		return;
@@ -102,18 +103,20 @@ void APTAIController::UpdateTargetActor(const TObjectPtr<AActor>& NewTarget)
 {
 	if (!IsValid(NewTarget))
 	{
-		Blackboard->SetValueAsObject(BBTarget, nullptr);
-	}
-	if (CurrentTargetActor == NewTarget)
-	{
-		return;
-	}
-	else
-	{
-		CurrentTargetActor = NewTarget;
 		if (IsValid(Blackboard))
 		{
-			Blackboard->SetValueAsObject(BBTarget, NewTarget);
+			Blackboard->SetValueAsObject(BBTarget, nullptr);
 		}
+		return;
+	}
+	// if (CurrentTargetActor == NewTarget)
+	// {
+	// 	return;
+	// }
+
+	CurrentTargetActor = NewTarget;
+	if (IsValid(Blackboard))
+	{
+		Blackboard->SetValueAsObject(BBTarget, NewTarget);
 	}
 }

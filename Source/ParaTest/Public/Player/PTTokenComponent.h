@@ -34,7 +34,7 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TObjectPtr<UTokenSettings> TokenSettings;
-	//TMap<TEnumAsByte<EToken>, int32> BaseTokensAmount;
+
 	UFUNCTION(BlueprintCallable)
 	bool TryReserveToken( const EToken Token);
 	UFUNCTION(BlueprintCallable)
