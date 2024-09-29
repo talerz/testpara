@@ -3,6 +3,7 @@
 #include "ParaTestProjectile.h"
 
 #include "AbilitySystemComponent.h"
+#include "AI/Anim/PTStaggerComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
 
@@ -43,6 +44,11 @@ void AParaTestProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor
 		{
 			//Apply ability effect to the actor that was hit
 			AbilitySystemComponent->ApplyGameplayEffectToSelf(HitEffect.GetDefaultObject(), 1.f, AbilitySystemComponent->MakeEffectContext());
+		}
+		TObjectPtr<UPTStaggerComponent> StaggerComponent= OtherActor->GetComponentByClass<UPTStaggerComponent>();
+		if(StaggerComponent)
+		{
+			StaggerComponent->StartStagger();
 		}
 		Destroy();
 	}

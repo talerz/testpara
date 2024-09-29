@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "AI/Nodes/KMBTDecorator_Cooldown.h"
+#include "AI/Nodes/PTBTDecorator_Cooldown.h"
 
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemGlobals.h"
 #include "AIController.h"
 
-UKMBTDecorator_Cooldown::UKMBTDecorator_Cooldown()
+UPTBTDecorator_Cooldown::UPTBTDecorator_Cooldown()
 {
 	NodeName = "Attribute Based Cooldown";
 	INIT_DECORATOR_NODE_NOTIFY_FLAGS();
@@ -17,7 +17,7 @@ UKMBTDecorator_Cooldown::UKMBTDecorator_Cooldown()
 	bAllowAbortChildNodes = false;
 }
 
-bool UKMBTDecorator_Cooldown::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const
+bool UPTBTDecorator_Cooldown::CalculateRawConditionValue(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) const
 {
 	if (OwnerComp.GetOwner() == nullptr || !OwnerComp.GetAIOwner())
 	{
@@ -42,7 +42,7 @@ bool UKMBTDecorator_Cooldown::CalculateRawConditionValue(UBehaviorTreeComponent&
 	return RecalcTime >= DecoratorMemory->LastUseTimestamp;
 }
 
-void UKMBTDecorator_Cooldown::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
+void UPTBTDecorator_Cooldown::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
 	FBTCooldownDecoratorMemory* DecoratorMemory = CastInstanceNodeMemory<FBTCooldownDecoratorMemory>(NodeMemory);
 	if (!DecoratorMemory->bRequestedRestart)
@@ -56,14 +56,14 @@ void UKMBTDecorator_Cooldown::TickNode(UBehaviorTreeComponent& OwnerComp, uint8*
 	}
 }
 
-FString UKMBTDecorator_Cooldown::GetStaticDescription() const
+FString UPTBTDecorator_Cooldown::GetStaticDescription() const
 {
 	// basic info: result after time
 	return FString::Printf(TEXT("Lock for %s after execution and return %s"),
 	                       *AttackCooldown.GetName(), *UBehaviorTreeTypes::DescribeNodeResult(EBTNodeResult::Failed));
 }
 
-void UKMBTDecorator_Cooldown::DescribeRuntimeValues(const UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory,
+void UPTBTDecorator_Cooldown::DescribeRuntimeValues(const UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory,
                                                     EBTDescriptionVerbosity::Type Verbosity,
                                                     TArray<FString>& Values) const
 {

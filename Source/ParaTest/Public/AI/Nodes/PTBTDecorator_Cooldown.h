@@ -5,16 +5,16 @@
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
 #include "BehaviorTree/Decorators/BTDecorator_Cooldown.h"
-#include "KMBTDecorator_Cooldown.generated.h"
+#include "PTBTDecorator_Cooldown.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PARATEST_API UKMBTDecorator_Cooldown : public UBTDecorator_Cooldown
+class PARATEST_API UPTBTDecorator_Cooldown : public UBTDecorator_Cooldown
 {
 	GENERATED_BODY()
-	UKMBTDecorator_Cooldown();
+	UPTBTDecorator_Cooldown();
 public:
 	UPROPERTY(Category=Decorator, EditAnywhere)
 	FGameplayAttribute AttackCooldown;

@@ -31,11 +31,15 @@ void APTAIController::OnPossess(APawn* InPawn)
 	//Setup BB values 
 	if (const APTEnemyCharacter* AIChar = Cast<APTEnemyCharacter>(InPawn))
 	{
-		Blackboard->SetValueAsFloat("MaxNormalAttackRadius", AIChar->MaxNormalAttackRadius);
-		Blackboard->SetValueAsFloat("MaxFireAttackRadius", AIChar->MaxFireAttackRadius);
+		// Blackboard->SetValueAsFloat("MaxNormalAttackRadius", AIChar->MaxNormalAttackRadius);
+		// Blackboard->SetValueAsFloat("MaxFireAttackRadius", AIChar->MaxFireAttackRadius);
+		//
+		// Blackboard->SetValueAsFloat("MinNormalAttackRadius", AIChar->MinNormalAttackRadius);
+		// Blackboard->SetValueAsFloat("MinFireAttackRadius", AIChar->MinFireAttackRadius);
 
-		Blackboard->SetValueAsFloat("MinNormalAttackRadius", AIChar->MinNormalAttackRadius);
-		Blackboard->SetValueAsFloat("MinFireAttackRadius", AIChar->MinFireAttackRadius);
+		
+		Blackboard->SetValueAsObject("SelfActor", InPawn);
+		//Blackboard->SetValueAsFloat("MinFireAttackRadius", AIChar->MinFireAttackRadius);
 	}
 
 	AIPerceptionComponent->OnTargetPerceptionUpdated.AddDynamic(this, &APTAIController::OnTargetPerceptionUpdated);
