@@ -3,10 +3,6 @@
 
 #include "Player/PTTokenComponent.h"
 
-UPTTokenComponent::UPTTokenComponent()
-{
-}
-
 bool UPTTokenComponent::TryReserveToken(const EToken Token)
 {
 	if(!TokenSettings)

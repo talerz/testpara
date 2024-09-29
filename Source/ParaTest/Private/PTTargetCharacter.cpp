@@ -7,7 +7,7 @@
 #include "PTAttributeSet.h"
 #include "Components/BoxComponent.h"
 
-//TODO: The actors could be AI characters
+//TODO: DELETE
 APTTargetCharacter::APTTargetCharacter()
 {
 	BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("BoxComp"));

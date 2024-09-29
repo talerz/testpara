@@ -42,9 +42,6 @@ public:
 	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* LookAction;
-	/** Change Projectile Action */
-	UFUNCTION(BlueprintCallable, Category=Projectile)
-	void ChangeProjectile(const TSubclassOf<class AParaTestProjectile> NewProjectileClass);
 
 protected:
 	/** Called for movement input */
@@ -58,8 +55,6 @@ protected:
 	// End of APawn interface
 
 public:
-	/** Returns Mesh1P subobject **/ //..
-
 	virtual USkeletalMeshComponent* GetMyMesh() const override { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }

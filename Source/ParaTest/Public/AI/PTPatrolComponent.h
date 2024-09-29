@@ -12,7 +12,6 @@ class PARATEST_API UPTPatrolComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-
 public:	
 	// Sets default values for this component's properties
 	UPTPatrolComponent();
@@ -37,6 +36,5 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<class APTPatrolPoint> CurrentPatrolPoint = nullptr;
-
-		
+	
 };

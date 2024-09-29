@@ -14,13 +14,13 @@ UCLASS(config=Game)
 class AParaTestCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
-	
+
 public:
 	AParaTestCharacter();
 
 	/**Ability System**/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UAbilitySystemComponent* AbilitySystem;
+	UAbilitySystemComponent* AbilitySystem = nullptr;
 
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override
 	{
@@ -28,25 +28,23 @@ public:
 	}
 
 	UPROPERTY()
-	class UPTAttributeSet* AttributeSet;
-	
+	class UPTAttributeSet* AttributeSet = nullptr;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability System")
 	TArray<TSubclassOf<class UGameplayAbility>> CurrentAbilities;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	class UPTTokenComponent* TokenComponent;
-	
+	class UPTTokenComponent* TokenComponent = nullptr;
+
 	UFUNCTION(BlueprintCallable)
-	virtual USkeletalMeshComponent* GetMyMesh()  const { return GetMesh(); }
+	virtual USkeletalMeshComponent* GetMyMesh() const { return GetMesh(); }
 
 	UFUNCTION(BlueprintNativeEvent)
-	void OnDeathStarted( float EffectMagnitude);
-	 
+	void OnDeathStarted(float EffectMagnitude);
+
 	UFUNCTION(BlueprintNativeEvent)
-	void OnHit( float EffectMagnitude);
+	void OnHit(float EffectMagnitude);
+
 protected:
 	virtual void BeginPlay() override;
-
-
 };
-

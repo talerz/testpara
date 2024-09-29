@@ -45,6 +45,7 @@ void AParaTestProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor
 			//Apply ability effect to the actor that was hit
 			AbilitySystemComponent->ApplyGameplayEffectToSelf(HitEffect.GetDefaultObject(), 1.f, AbilitySystemComponent->MakeEffectContext());
 		}
+		//Start Stagger on Enemies
 		TObjectPtr<UPTStaggerComponent> StaggerComponent= OtherActor->GetComponentByClass<UPTStaggerComponent>();
 		if(StaggerComponent)
 		{

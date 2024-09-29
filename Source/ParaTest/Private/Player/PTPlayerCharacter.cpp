@@ -30,24 +30,6 @@ void APTPlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 }
-//TODO: Input key binding should be moved to code from BP 
-void APTPlayerCharacter::ChangeProjectile(const TSubclassOf<class AParaTestProjectile> NewProjectileClass)
-{
-	const TArray<UActorComponent*> InstComponents = GetInstanceComponents();
-	UTP_WeaponComponent* Weapon = nullptr;
-	if (InstComponents.Num() > 0)
-	{
-		for (auto& InstComponent : InstComponents)
-		{
-			Weapon = Cast<UTP_WeaponComponent>(InstComponent);
-			if (IsValid(Weapon))
-			{
-				Weapon->ChangeProjectile(NewProjectileClass);
-				break;
-			}
-		}
-	}
-}
 
 void APTPlayerCharacter::Move(const FInputActionValue& Value)
 {

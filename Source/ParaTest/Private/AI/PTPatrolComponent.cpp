@@ -39,8 +39,8 @@ void UPTPatrolComponent::BeginPlay()
 	{
 		EnemyOwnerController = Cast<APTAIController>(EnemyOwner->GetController());
 	}
+	//Setup start PatrolPoint
 	NewPatrolPointReached(FirstPatrolPoint.Get());
-	
 }
 
 

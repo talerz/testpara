@@ -16,6 +16,7 @@ class PARATEST_API APTEnemyCharacter : public AParaTestCharacter
 
 public:
 	APTEnemyCharacter();
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	TObjectPtr<class UPTStaggerComponent> StaggerComponent = nullptr;
 

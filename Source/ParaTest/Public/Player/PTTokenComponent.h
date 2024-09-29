@@ -30,7 +30,6 @@ class PARATEST_API UPTTokenComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	UPTTokenComponent();
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TObjectPtr<UTokenSettings> TokenSettings;
