@@ -5,7 +5,6 @@
 
 #include "AbilitySystemComponent.h"
 
-// Sets default values for this component's properties
 UPTStaggerComponent::UPTStaggerComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
@@ -14,13 +13,14 @@ UPTStaggerComponent::UPTStaggerComponent()
 
 void UPTStaggerComponent::BeginPlay()
 {
+	//No need to tick all the time
 	SetComponentTickEnabled(false);
 	Super::BeginPlay();
 }
 
 bool UPTStaggerComponent::CanApplyStagger() const
 {
-	//Dont start stagger if already staggered or while immune
+	//Don't start stagger if already staggered or while immune
 	if (bStaggered || !IsValid(StaggerSettings) || CurrentStaggerImmunityTime > 0.f)
 	{
 		return false;
@@ -52,22 +52,23 @@ void UPTStaggerComponent::StartStagger()
 	SetComponentTickEnabled(true);
 }
 
-
-// Called every frame
 void UPTStaggerComponent::TickComponent(float DeltaTime, ELevelTick TickType,
                                         FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	//Just decrease Stagger time, till it reaches 0
 	if (CurrentStaggerTime > 0.f)
 	{
 		CurrentStaggerTime -= DeltaTime;
-		//start immunity
+
 		return;
 	}
 	if (bStaggered)
 	{
 		bStaggered = false;
+
+		//Remove Stagger Gameplay tag, when stagger time finished
 		if(IsValid(GetOwner()))
 		{
 			TObjectPtr<UAbilitySystemComponent> AbilitySystem = GetOwner()->GetComponentByClass<UAbilitySystemComponent>();

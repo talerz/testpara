@@ -18,14 +18,5 @@ public:
 	APTEnemyCharacter();
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	TObjectPtr<class UPTStaggerComponent> StaggerComponent = nullptr;
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AI")
-	FGameplayTag StaggerTag;
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "AI")
-	FGameplayAttribute StaggerAttribute;
 
-	UFUNCTION(BlueprintCallable, Category = "Stagger")
-	bool IsStaggered() const;
-protected:
-	virtual void BeginPlay() override;
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 };

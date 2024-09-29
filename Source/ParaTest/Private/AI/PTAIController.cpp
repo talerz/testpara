@@ -15,7 +15,6 @@ APTAIController::APTAIController()
 {
 	AIBehaviorTreeComponent = CreateDefaultSubobject<UBehaviorTreeComponent>(TEXT("BehaviorTreeComponent"));
 	AIBlackboardComponent = CreateDefaultSubobject<UBlackboardComponent>(TEXT("BlackBoardComp"));
-
 	AIPerceptionComponent = CreateDefaultSubobject<UAIPerceptionComponent>(TEXT("PerceptionComponent"));
 }
 
@@ -31,15 +30,7 @@ void APTAIController::OnPossess(APawn* InPawn)
 	//Setup BB values 
 	if (const APTEnemyCharacter* AIChar = Cast<APTEnemyCharacter>(InPawn))
 	{
-		// Blackboard->SetValueAsFloat("MaxNormalAttackRadius", AIChar->MaxNormalAttackRadius);
-		// Blackboard->SetValueAsFloat("MaxFireAttackRadius", AIChar->MaxFireAttackRadius);
-		//
-		// Blackboard->SetValueAsFloat("MinNormalAttackRadius", AIChar->MinNormalAttackRadius);
-		// Blackboard->SetValueAsFloat("MinFireAttackRadius", AIChar->MinFireAttackRadius);
-
-		
 		Blackboard->SetValueAsObject("SelfActor", InPawn);
-		//Blackboard->SetValueAsFloat("MinFireAttackRadius", AIChar->MinFireAttackRadius);
 	}
 
 	AIPerceptionComponent->OnTargetPerceptionUpdated.AddDynamic(this, &APTAIController::OnTargetPerceptionUpdated);
@@ -51,7 +42,7 @@ void APTAIController::OnUnPossess()
 	Super::OnUnPossess();
 }
 
-void APTAIController::UpdatePatrolPoint(const TObjectPtr<APTPatrolPoint>& NewPatrolPoint)
+void APTAIController::UpdatePatrolPoint(const TObjectPtr<APTPatrolPoint>& NewPatrolPoint) const
 {
 	if (NewPatrolPoint == nullptr)
 	{
@@ -66,12 +57,6 @@ void APTAIController::UpdatePatrolPoint(const TObjectPtr<APTPatrolPoint>& NewPat
 
 void APTAIController::OnTargetPerceptionUpdated(AActor* Actor, struct FAIStimulus Stimulus)
 {
-	//Clear Target if not sensed
-	// if (!Stimulus.WasSuccessfullySensed())
-	// {
-	// 	UE_LOG(LogTemp, Error, L"I WASNT SENSED ??? ")
-	// 	UpdateTargetActor(nullptr);
-	// }
 	if (!IsValid(Actor) || !Cast<APTPlayerCharacter>(Actor))
 	{
 		return;
@@ -92,17 +77,6 @@ void APTAIController::OnTargetPerceptionForgotten(AActor* Actor)
 	}
 }
 
-void APTAIController::ChangeStaggeredState(bool bStagger)
-{
-	if (Blackboard != nullptr)
-	{
-		if (Blackboard->GetValueAsBool("Staggered") != bStagger)
-		{
-			Blackboard->SetValueAsBool("Staggered", bStagger);
-		}
-	}
-}
-
 void APTAIController::UpdateTargetActor(const TObjectPtr<AActor>& NewTarget)
 {
 	if (!IsValid(NewTarget))
@@ -113,10 +87,6 @@ void APTAIController::UpdateTargetActor(const TObjectPtr<AActor>& NewTarget)
 		}
 		return;
 	}
-	// if (CurrentTargetActor == NewTarget)
-	// {
-	// 	return;
-	// }
 
 	CurrentTargetActor = NewTarget;
 	if (IsValid(Blackboard))

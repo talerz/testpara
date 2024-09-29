@@ -30,6 +30,8 @@ bool UPTBTDecorator_Cooldown::CalculateRawConditionValue(UBehaviorTreeComponent&
 		{
 			bool bFound = false;
 			AttributeCooldown = AbilitySystem->GetGameplayAttributeValue(AttackCooldown, bFound);
+
+			//If Attribute not found, use base Cooldown Time
 			if (!bFound)
 			{
 				AttributeCooldown = CoolDownTime;

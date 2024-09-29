@@ -21,7 +21,7 @@ public:
 
 	virtual void OnUnPossess() override;
 
-	void UpdatePatrolPoint(const TObjectPtr<class APTPatrolPoint>& NewPatrolPoint);
+	void UpdatePatrolPoint(const TObjectPtr<class APTPatrolPoint>& NewPatrolPoint) const;
 
 protected:
 	UPROPERTY()
@@ -48,15 +48,11 @@ protected:
 	//BB keys names
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "BlackBoard")
 	FName BBTarget = TEXT("Target");
-
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "BlackBoard")
 	FName BBStaggered = TEXT("bStaggered");
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "BlackBoard")
 	FName BBKey_PatrolPoint = FName("PatrolPoint");
 	//~~BB keys names
-
-	UFUNCTION(BlueprintCallable)
-	void ChangeStaggeredState(bool bStagger);
 
 private:
 	void UpdateTargetActor(const TObjectPtr<AActor>& NewTarget);
